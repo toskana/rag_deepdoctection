@@ -1,0 +1,49 @@
+services:
+  deepdoctection:
+    build: ./deepdoctection
+    container_name: deepdoctection
+    stdin_open: true
+    tty: true
+    ports:
+      - "8889:8888"  # JupyterLab
+    volumes:
+      - ${CACHE_HOST}:/repo/cache
+      - ${WORK_DIR}:/repo/notebooks
+    working_dir: /repo/notebooks
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    entrypoint: ["bash", "-c", "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''"]
+
+  llm-gpu:
+    image: rag-llama-llm-gpu:prod
+    container_name: llm-gpu
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    command: ["/app/llama.cpp/build/bin/llama-server", "-m", "/models/llm_modell.gguf", "-t", "28", "--host", "0.0.0.0", "--port", "5001"]
+    ports:
+      - "5001:5001"
+    volumes:
+      - /home/dirk/models:/models
+    restart: unless-stopped
+
+  controller:
+    build: ./controller
+    container_name: controller
+    ports:
+      - "8888:8888"  # JupyterLab
+    volumes:
+      - ${WORK_DIR}:/notebooks
+    working_dir: /notebooks
+    entrypoint: ["bash", "-c", "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''"]
+    depends_on:
+      - llm-gpu
+      - deepdoctection

@@ -1,0 +1,45 @@
+# Jupyter & Dev
+jupyterlab
+ipykernel
+ipywidgets
+jupytext
+tqdm
+rich
+
+# LangChain Stack
+langchain
+langchain-community
+chromadb
+faiss-cpu                           # ==1.7.4 ?
+
+# Statt Huggingface & Transformers (wie in rag-llama)
+langchain-huggingface
+sentence-transformers
+
+# HuggingFace & Transformers
+# transformers==4.33
+# sentence-transformers==2.2.2
+# accelerate
+# huggingface-hub                   # ==0.11.1 ?
+
+# PDF und Dokumente
+pypdf
+pdfminer.six
+PyMuPDF
+unstructured
+
+# NLP Tools
+spacy
+nltk
+
+# Web & Container
+requests
+
+# Dataframes
+pandas
+
+
+
+
+
+

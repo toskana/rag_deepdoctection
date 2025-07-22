@@ -1,0 +1,1 @@
+Es wird aufbauend auf dem original dockerimage von deepdoctection auf dockerhub ein Image gebaut, welches zusätzlich Jupyter enthält und startet sowie die fehlenden Abhängigkeiten für deepdoctection (Stand 14.07.2025) installiert.
