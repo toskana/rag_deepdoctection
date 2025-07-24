@@ -1,0 +1,17 @@
+Start:
+
+1. Container llm-gpu oder llm-cpu in /llama bauen
+2. Image eines der beiden Container llm-gpu oder llm-cpu in docker-compose als Basiimage unter IMAGE einbinden
+3. Pfad zum gguf Modell in dockercompose im Projektverzeichnis für llm-(g/c)pu in command und volumes anpassen
+4. gguf Modell (bind mount) bereitstellen bspw. für RTX 2060: mistral-7b-instruct-v0.1.Q4_K_M oder llama-2-7b-chat.Q4_K_M
+5. In .ENV Datei pfaden anpassen zu bind mount anpassen für cache und notebooks für Container deepdoctection
+6. Ergebnis:
+        Container 1: deepdoctection wandelt pdf in notebooks/data um in json in notebooks/json
+        Container 2: llm-(c/g)pu stellt LLM bereitstellen
+        Container 3: Controller wandelt json in notebooks/json in vectorstore in notebooks/vectorstore um und
+                     gibt Anfrage an das llama
+
+Container 1 und 3 stellen auf Port 8889 bzw. 8888 Jupyterlab im Browser unter localhost:port zur Verfügung
+VORSICHT: Keine Sicherung durch Token einstellt. Nur so nutzen, wenn keine Verbindung des LAN nach draußen existiert und das LAN sicher ist.
+
+
