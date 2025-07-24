@@ -1,1 +1,59 @@
+# Papierkorb-Ordner ignorieren
 .Trash-0/
+
+# Modell-Dateien ignorieren
+*.gguf
+
+# Python-Cache und Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtuelle Umgebungen
+venv/
+env/
+.env/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Jupyter Notebook Ausgabedateien (z.B. automatisch generierte .py Dateien)
+*.py~
+*.ipynb_checkpoints/
+
+# Editor-Dateien
+.vscode/
+.idea/
+*.swp
+*~
+
+# Docker-spezifisch
+*.tar
+docker-compose.override.yml
+
+# Logs und temporäre Dateien
+*.log
+*.tmp
+*.temp
+
+# Mac OS Dateien
+.DS_Store
+
+# Daten (große Dateien, die du nicht versionieren willst)
+notebooks/data/
+notebooks/json/
+
+# FAISS-Index-Dateien (falls groß und regenerierbar)
+notebooks/notebooks_llm/vectorstore/
+notebooks/vectorstore/
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+*.dll
+
+# Andere temporäre Dateien
+*.bak
+*.orig
+*.rej
+

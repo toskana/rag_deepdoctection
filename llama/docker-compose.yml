@@ -1,0 +1,23 @@
+services:
+  llm-cpu:
+    build: ./llm-cpu
+    container_name: llm-cpu
+    command: ["/app/llama.cpp/build/bin/llama-server", "-m", "/models/llm_modell.gguf", "-t", "28", "--host", "0.0.0.0", "--port", "5000"]
+    ports:
+      - "5000:5000"
+    volumes:
+      - /home/dirk/models:/models
+    restart: unless-stopped
+
+  llm-gpu:
+    build: ./llm-gpu
+    container_name: llm-gpu
+    runtime: nvidia   # Für GPU-Zugriff (Voraussetzung: NVIDIA Container Toolkit installiert)
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    ports:
+      - "5001:5001"
+    volumes:
+      - /home/dirk/models:/models
+    restart: unless-stopped
+

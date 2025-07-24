@@ -1,0 +1,31 @@
+# llm-gpu/Dockerfile
+FROM nvidia/cuda:12.2.0-devel-ubuntu22.04
+
+# System-Abhängigkeiten installieren
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    curl \
+    wget \
+    python3 \
+    python3-pip \
+    libcurl4-openssl-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Arbeitsverzeichnis setzen
+WORKDIR /app
+
+# llama.cpp klonen (aber nicht bauen!)
+RUN git clone https://github.com/ggerganov/llama.cpp
+
+# entrypoint-Skript kopieren
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Arbeitsverzeichnis setzen
+WORKDIR /app/llama.cpp
+
+# Einstiegspunkt setzen
+ENTRYPOINT ["/entrypoint.sh"]
+
